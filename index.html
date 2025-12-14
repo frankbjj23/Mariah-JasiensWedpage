@@ -6,17 +6,17 @@
   <title>Mariah and Jasien's Wedpage</title>
   <style>
     :root {
-      --blush: #f8e8e4;
-      --champagne: #f6f1eb;
-      --ink: #1f1a1c;
-      --rose: #d6a59a;
-      --gold: #b28b67;
-      --mist: #ffffffcc;
+      --blush: #e8f0f6;
+      --champagne: #dfe7ef;
+      --ink: #1c2430;
+      --rose: #7a9ab8;
+      --gold: #5b7691;
+      --mist: #ffffffd9;
     }
     * { box-sizing: border-box; }
     body {
       margin: 0;
-      background: radial-gradient(circle at 20% 20%, #fff9f5, #f2e8e2 45%, #efe6df 100%);
+      background: radial-gradient(circle at 18% 20%, var(--champagne), #d6e1ec 45%, #c7d6e6 100%);
       color: var(--ink);
       font-family: "Playfair Display", "Bodoni MT", Georgia, "Times New Roman", serif;
       line-height: 1.6;
@@ -48,18 +48,45 @@
       text-align: center;
       color: #fff;
       overflow: hidden;
+      background: radial-gradient(circle at 30% 25%, var(--blush), var(--champagne));
+      z-index: 0;
     }
     .hero::before {
       content: "";
       position: absolute;
       inset: 0;
-      background: linear-gradient(135deg, #0f0a0c99, #0f0a0c66), url('images/IMG_4967.jpg') center/cover no-repeat;
-      filter: saturate(1.05);
-      transform: scale(1.02);
-      z-index: -1;
+      background: linear-gradient(135deg, #0f141b55, #0f141b33), url('images/websitestairbehindthescenes.jpg') center/cover no-repeat;
+      z-index: 0;
+      animation: heroZoom 8s ease-in-out infinite alternate;
+      transform-origin: center;
     }
-    .hero .copy { max-width: 720px; padding: 72px 18px; }
-    .hero h1 { font-size: clamp(2.8rem, 4vw, 4rem); margin: 0 0 8px; letter-spacing: 0.05em; }
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(400px 260px at 20% 30%, #ffffff55, #ffffff00 60%),
+        radial-gradient(360px 220px at 75% 25%, #ffffff44, #ffffff00 60%),
+        radial-gradient(520px 280px at 50% 65%, #fdf5ef55, #ffffff00 70%),
+        linear-gradient(135deg, #0f0a0caa, #0f0a0c77);
+      z-index: 2;
+      transition: opacity 0.8s ease;
+      mix-blend-mode: screen;
+    }
+    .hero .copy { position: relative; z-index: 3; max-width: 720px; padding: 72px 18px; }
+    .hero .copy { position: relative; z-index: 2; max-width: 720px; padding: 72px 18px; }
+    .hero h1 {
+      font-size: clamp(2.8rem, 4vw, 4rem);
+      margin: 0 0 8px;
+      letter-spacing: 0.05em;
+      position: relative;
+      display: inline-block;
+      background: linear-gradient(120deg, #ffffff, #fdf5ef 30%, #e8d9cf 45%, #ffffff 60%, #fefefe 80%, #f7eee5);
+      -webkit-background-clip: text;
+      color: transparent;
+      animation: sparkleText 2.6s ease-in-out infinite;
+      text-shadow: 0 0 8px #ffffffaa, 0 0 18px #f7e8dc88;
+    }
     .hero p.lead { margin: 0 0 18px; font-size: 1.1rem; }
     .hero .date { display: inline-flex; gap: 10px; align-items: center; padding: 10px 18px; border-radius: 999px; background: #ffffff1a; border: 1px solid #ffffff44; font-size: 0.95rem; }
     .cta {
@@ -69,12 +96,14 @@
       gap: 10px;
       padding: 12px 20px;
       border-radius: 12px;
-      background: linear-gradient(135deg, #e7c4b8, #d6a59a);
+      background: linear-gradient(135deg, var(--rose), var(--gold));
+      background-size: 200% 200%;
       color: var(--ink);
       font-weight: 600;
       text-decoration: none;
       box-shadow: 0 14px 40px #0000002e;
       transition: transform 0.2s ease, box-shadow 0.2s ease;
+      animation: shimmer 5s ease infinite;
     }
     .cta:hover { transform: translateY(-2px); box-shadow: 0 18px 48px #00000035; }
 
@@ -84,49 +113,66 @@
 
     .story { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 18px; align-items: center; }
     .card {
-      background: #fff;
+      background: #f6f9fc;
       border-radius: 18px;
       padding: 22px 24px;
-      border: 1px solid #eeded5;
+      border: 1px solid #d7e1ec;
       box-shadow: 0 12px 38px #0000000f;
     }
     .card p { margin: 0; color: #3c3030; }
     .timeline { display: grid; gap: 14px; }
     .timeline-item { display: grid; grid-template-columns: 120px 1fr; gap: 12px; align-items: baseline; }
     .timeline time { font-weight: 700; color: #6f4f43; }
-    .timeline .item { padding: 14px 16px; border-radius: 12px; background: #fff9f6; border: 1px solid #f0e0d8; }
+    .timeline .item { padding: 14px 16px; border-radius: 12px; background: #eef4fb; border: 1px solid #d7e1ec; }
+
+    .snow {
+      pointer-events: none;
+      position: fixed;
+      inset: 0;
+      overflow: hidden;
+      z-index: 5;
+    }
+    .flake {
+      position: absolute;
+      top: -10px;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #ffffffdd;
+      box-shadow: 0 0 12px #b6c8de88;
+      animation-name: fall;
+      animation-timing-function: linear;
+      animation-iteration-count: infinite;
+    }
+
+    @keyframes fall {
+      0% { transform: translate3d(0, -20px, 0) scale(0.9); opacity: 1; }
+      100% { transform: translate3d(var(--drift, 40px), 110vh, 0) scale(1.1); opacity: 0; }
+    }
+    @keyframes shimmer {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    @keyframes heroZoom {
+      0% { transform: scale(1); }
+      100% { transform: scale(1.12); }
+    }
+    @keyframes sparkleText {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
 
     .gallery {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 12px;
-    }
-    .gallery figure {
-      position: relative;
-      margin: 0;
-      overflow: hidden;
-      border-radius: 16px;
-      cursor: pointer;
-      border: 1px solid #eeded5;
+      text-align: center;
+      padding: 24px 18px;
+      border-radius: 18px;
+      border: 1px solid #d7e1ec;
       box-shadow: 0 12px 32px #00000014;
+      background: #f0f6fc;
+      color: #1c2430;
     }
-    .gallery img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.4s ease, filter 0.4s ease; }
-    .gallery figure::after {
-      content: "Tap to open";
-      position: absolute;
-      inset: auto 12px 12px auto;
-      padding: 6px 10px;
-      border-radius: 999px;
-      font-size: 0.78rem;
-      background: #ffffffd8;
-      color: #5b3f35;
-      box-shadow: 0 8px 18px #0000001a;
-      opacity: 0;
-      transform: translateY(6px);
-      transition: 0.3s ease;
-    }
-    .gallery figure:hover img { transform: scale(1.05); filter: saturate(1.08); }
-    .gallery figure:hover::after { opacity: 1; transform: translateY(0); }
 
     .video-card {
       background: linear-gradient(135deg, #fff, #f8ebe5);
@@ -139,30 +185,6 @@
 
     footer { text-align: center; padding: 28px 18px 42px; color: #5c4a44; font-size: 0.95rem; }
 
-    /* Lightbox */
-    #lightbox {
-      position: fixed;
-      inset: 0;
-      background: #0b0506dd;
-      display: none;
-      align-items: center;
-      justify-content: center;
-      padding: 16px;
-      z-index: 20;
-    }
-    #lightbox img { max-width: min(1100px, 90vw); max-height: 80vh; border-radius: 18px; box-shadow: 0 20px 60px #00000055; }
-    #lightbox button {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-      background: #ffffffee;
-      border: none;
-      border-radius: 999px;
-      padding: 10px 14px;
-      font-weight: 700;
-      cursor: pointer;
-      box-shadow: 0 10px 30px #00000025;
-    }
     @media (max-width: 768px) {
       body { font-size: 15px; }
       header { padding: 10px 14px; }
@@ -177,6 +199,7 @@
   </style>
 </head>
 <body>
+  <div class="snow" id="snowLayer"></div>
   <header>
     <div class="brand">Mariah & Jasien</div>
     <nav>
@@ -240,20 +263,31 @@
     </div>
   </section>
 
-  <section id="gallery">
-    <h2>Gallery</h2>
-    <p class="subhead">Tap any photo to open it larger.</p>
-    <div class="gallery" id="galleryGrid"></div>
-  </section>
-
   <section>
     <div class="video-card">
       <h2 style="margin-top: 8px;">Highlight Film</h2>
       <p class="subhead">Replay the cheers and happy tears.</p>
-      <video controls preload="metadata" poster="images/IMG_5004.jpg">
+      <video id="highlightVideo" preload="metadata" muted autoplay playsinline>
         <source src="images/IMG_5046.mp4" type="video/mp4" />
         Your browser does not support the video tag.
       </video>
+      <div style="display:flex; gap:10px; margin-top:10px;">
+        <button class="cta" id="playHighlight" type="button" style="padding:10px 16px;">Play / Pause</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="song">
+    <h2>Song for the Day</h2>
+    <p class="subhead">“Unconditionally”</p>
+    <div class="card" style="padding: 10px;">
+      <iframe allow="autoplay *; encrypted-media *; fullscreen *; clipboard-write"
+              frameborder="0"
+              height="175"
+              style="width:100%;max-width:660px;overflow:hidden;border-radius:10px;"
+              sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation"
+              src="https://embed.music.apple.com/us/song/unconditionally/1440819164?autoplay=1">
+      </iframe>
     </div>
   </section>
 
@@ -275,19 +309,6 @@
     Mariah &amp; Jasien &mdash; A day wrapped in love and family.
   </footer>
 
-  <div id="lightbox" aria-hidden="true">
-    <button aria-label="Close">Close</button>
-    <img alt="Expanded wedding photograph" src="" />
-  </div>
-
-  <div id="audioToggle" style="position:fixed; right:16px; bottom:16px; z-index:12; display:flex; align-items:center; gap:8px; background:#ffffffd8; border:1px solid #e1cfc5; padding:10px 12px; border-radius:14px; box-shadow:0 10px 30px #00000020; cursor:pointer;">
-    <span id="audioStatus" style="font-weight:700; color:#5b3f35; font-size:0.95rem;">Play music</span>
-    <span aria-hidden="true">🎵</span>
-    <audio id="bgAudio" loop preload="metadata">
-      <source src="images/wedding invite.mp4" type="audio/mp4" />
-    </audio>
-  </div>
-
   <script>
     const images = [
       'IMG_4967.jpg','IMG_4968.jpg','IMG_4969.jpg','IMG_4970.jpg','IMG_4971.jpg','IMG_4972.jpg','IMG_4973.jpg','IMG_4974.jpg','IMG_4975.jpg','IMG_4976.jpg','IMG_4977.jpg','IMG_4978.jpg','IMG_4979.jpg','IMG_4980.jpg','IMG_4981.jpg','IMG_4982.jpg','IMG_4983.jpg','IMG_4984.jpg',
@@ -296,56 +317,75 @@
       'IMG_5203.jpg','IMG_5205.jpg','IMG_5206.jpg','IMG_5207.jpg','IMG_5208.jpg','IMG_5209.jpg'
     ].map(name => `images/${name}`);
 
-    const grid = document.getElementById('galleryGrid');
-    images.forEach((src, idx) => {
-      const figure = document.createElement('figure');
-      const img = document.createElement('img');
-      img.src = src;
-      img.alt = `Wedding photo ${idx + 1}`;
-      figure.appendChild(img);
-      figure.addEventListener('click', () => openLightbox(src));
-      grid.appendChild(figure);
-    });
 
-    const lightbox = document.getElementById('lightbox');
-    const lightboxImg = lightbox.querySelector('img');
-    const closeBtn = lightbox.querySelector('button');
-
-    function openLightbox(src) {
-      lightboxImg.src = src;
-      lightbox.style.display = 'flex';
-      lightbox.setAttribute('aria-hidden', 'false');
-      document.body.style.overflow = 'hidden';
-    }
-
-    function closeLightbox() {
-      lightbox.style.display = 'none';
-      lightbox.setAttribute('aria-hidden', 'true');
-      lightboxImg.src = '';
-      document.body.style.overflow = '';
-    }
-
-    closeBtn.addEventListener('click', closeLightbox);
-    lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closeLightbox(); });
-    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeLightbox(); });
-
-    // Background music toggle
-    const audioToggle = document.getElementById('audioToggle');
-    const audioStatus = document.getElementById('audioStatus');
-    const bgAudio = document.getElementById('bgAudio');
-    audioToggle.addEventListener('click', async () => {
-      try {
-        if (bgAudio.paused) {
-          await bgAudio.play();
-          audioStatus.textContent = 'Pause music';
-        } else {
-          bgAudio.pause();
-          audioStatus.textContent = 'Play music';
-        }
-      } catch (e) {
-        audioStatus.textContent = 'Tap to play';
+    // Snowfall effect
+    const snowLayer = document.getElementById('snowLayer');
+    function addSnowflakes(count = 70) {
+      for (let i = 0; i < count; i++) {
+        const flake = document.createElement('div');
+        flake.className = 'flake';
+        const size = Math.random() * 6 + 4;
+        flake.style.width = `${size}px`;
+        flake.style.height = `${size}px`;
+        flake.style.left = `${Math.random() * 100}%`;
+        const duration = Math.random() * 6 + 6;
+        const delay = Math.random() * 6;
+        const drift = (Math.random() * 120 - 60) + 'px';
+        flake.style.setProperty('--drift', drift);
+        flake.style.animationDuration = `${duration}s`;
+        flake.style.animationDelay = `${delay}s`;
+        flake.style.animationIterationCount = 'infinite';
+        snowLayer.appendChild(flake);
       }
-    });
+    }
+    addSnowflakes();
+
+
+    // Generate poster at ~53s from highlight film
+    const highlightVideo = document.getElementById('highlightVideo');
+    const playHighlight = document.getElementById('playHighlight');
+    function setHighlightPoster() {
+      const target = 53;
+      let captured = false;
+      highlightVideo.addEventListener('loadedmetadata', () => {
+        if (highlightVideo.duration < target) return;
+        highlightVideo.currentTime = target;
+      });
+      highlightVideo.addEventListener('seeked', () => {
+        if (captured || Math.abs(highlightVideo.currentTime - target) > 0.6) return;
+        const canvas = document.createElement('canvas');
+        canvas.width = highlightVideo.videoWidth || 1280;
+        canvas.height = highlightVideo.videoHeight || 720;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(highlightVideo, 0, 0, canvas.width, canvas.height);
+        const dataURL = canvas.toDataURL('image/jpeg', 0.8);
+        highlightVideo.setAttribute('poster', dataURL);
+        captured = true;
+        highlightVideo.currentTime = 0;
+        highlightVideo.play().catch(() => {});
+      });
+    }
+    setHighlightPoster();
+
+    // Simple play/pause without volume controls
+    if (playHighlight) {
+      playHighlight.addEventListener('click', async () => {
+        try {
+          if (highlightVideo.paused) {
+            await highlightVideo.play();
+            playHighlight.textContent = 'Pause';
+          } else {
+            highlightVideo.pause();
+            playHighlight.textContent = 'Play';
+          }
+        } catch (e) {
+          playHighlight.textContent = 'Tap to play';
+        }
+      });
+      highlightVideo.addEventListener('play', () => { playHighlight.textContent = 'Pause'; });
+      highlightVideo.addEventListener('pause', () => { playHighlight.textContent = 'Play'; });
+    }
+
 
     // Message board with localStorage persistence (client-side only)
     const emojiBar = document.getElementById('emojiBar');
